@@ -1,9 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsString } from "class-validator";
 
-export class CreateRegionDto {
+export class CreateCoverTypeDto {
 
-    @ApiProperty({ example: "Region", description: "Viloyat nomi" })
+    @ApiProperty({ example: "Type", description: "Muqova turi" })
     @IsString()
     @IsNotEmpty()
     name: string
