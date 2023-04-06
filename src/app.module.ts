@@ -17,6 +17,8 @@ import { Book } from './books/models/book.model';
 import { CoverType } from './cover_types/models/cover_type.model';
 import { BranchesModule } from './branches/branches.module';
 import { Branch } from './branches/models/branch.model';
+import { AdminModule } from './admin/admin.module';
+import { Admin } from './admin/models/admin.model';
 
 @Module({
   imports: [
@@ -35,7 +37,8 @@ import { Branch } from './branches/models/branch.model';
         Author,
         Book,
         CoverType,
-        Branch
+        Branch,
+        Admin
       ],
       autoLoadModels: true,
       logging: true
@@ -46,7 +49,8 @@ import { Branch } from './branches/models/branch.model';
     AuthorsModule,
     BooksModule,
     CoverTypesModule,
-    BranchesModule
+    BranchesModule,
+    AdminModule
   ],
   controllers: [AppController],
   providers: [AppService],

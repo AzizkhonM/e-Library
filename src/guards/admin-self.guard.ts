@@ -1,0 +1,49 @@
+import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import { Observable } from "rxjs";
+import { Admin } from "../admin/models/admin.model";
+
+@Injectable()
+export class AdminSelfGuard implements CanActivate {
+    constructor(private readonly jwtService: JwtService) { }
+    canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
+        const req = context.switchToHttp().getRequest();
+        const authHeader = req.headers.authorization;
+        if (!authHeader)
+            throw new UnauthorizedException({
+                message: "Foydalanuvchi avtorizatsiyadan o'tmagan",
+            });
+        const bearer = authHeader.split(' ')[0];
+        const token = authHeader.split(' ')[1];
+        if (bearer !== 'Bearer' || !token) {
+            throw new UnauthorizedException({
+                message: "Foydalanuvchi avtorizatsiyadan o'tmagan0",
+            });
+        }
+        let user: any;
+        try {
+            user = this.jwtService.verify(token, { secret: process.env.PRIVATE_KEY });
+        } catch (error) {
+            console.log(error);
+
+            throw new UnauthorizedException({
+                message: "Foydalanuvchi avtorizatsiyadan o'tmagan User",
+            });
+        }
+
+        req.user = user
+
+        console.log(req.user);
+        
+        
+        if(!user.is_owner){
+            if (req.user.id != +req.params.id) {
+                throw new UnauthorizedException({
+                    message: "Ruxsat etilmagan foydalanuvchi"
+                })
+            }
+        }
+
+        return true
+    }
+}
