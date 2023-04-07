@@ -3,7 +3,7 @@ import { JwtService } from "@nestjs/jwt";
 import { Observable } from "rxjs";
 
 @Injectable()
-export class OnlyOwnerGuard implements CanActivate {
+export class IsAdminGuard implements CanActivate {
     constructor(private readonly jwtService: JwtService) { }
     canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
         const req = context.switchToHttp().getRequest();
@@ -29,11 +29,14 @@ export class OnlyOwnerGuard implements CanActivate {
                 message: "Foydalanuvchi avtorizatsiyadan o'tmagan User",
             });
         }
+
+
+        console.log(req, "salom");
         
         
-        if(!user.is_owner){
+        if(!user.is_active){
             throw new UnauthorizedException({
-                message: "Ruxsat etilmagan foydalanuvchi"
+                message: "Faollashtirilmagansiz"
             })
         }
 

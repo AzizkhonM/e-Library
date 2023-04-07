@@ -33,4 +33,19 @@ export class CreateBookDto {
     @IsNotEmpty()
     branch_id: number
 
+    @ApiProperty({ example: "1", description: "Kategoriya ID raqami" })
+    @IsNumber()
+    @IsNotEmpty()
+    category_id: number
+
+    @ApiProperty({ example: "1", description: "Muqova turi ID raqami" })
+    @IsNumber()
+    @IsNotEmpty()
+    cover_id: number
+
+    @ApiProperty({ example: "https://image.png", description: "Muqova rasmi" })
+    @IsString()
+    @IsNotEmpty()
+    cover_image_link: string
+
 }

@@ -140,7 +140,8 @@ export class AdminService {
     const jwtPayload = {
       id: admin.id,
       is_active: admin.is_active,
-      is_owner: admin.is_owner
+      is_owner: admin.is_owner,
+      is_admin: true
     }
 
     const [accessToken, refreshToken] = await Promise.all([

@@ -19,6 +19,10 @@ import { BranchesModule } from './branches/branches.module';
 import { Branch } from './branches/models/branch.model';
 import { AdminModule } from './admin/admin.module';
 import { Admin } from './admin/models/admin.model';
+import { CategoryModule } from './category/category.module';
+import { Category } from './category/models/category.model';
+import { UsersModule } from './users/users.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -38,7 +42,8 @@ import { Admin } from './admin/models/admin.model';
         Book,
         CoverType,
         Branch,
-        Admin
+        Admin,
+        Category
       ],
       autoLoadModels: true,
       logging: true
@@ -50,7 +55,10 @@ import { Admin } from './admin/models/admin.model';
     BooksModule,
     CoverTypesModule,
     BranchesModule,
-    AdminModule
+    AdminModule,
+    CategoryModule,
+    UsersModule,
+    MailModule
   ],
   controllers: [AppController],
   providers: [AppService],

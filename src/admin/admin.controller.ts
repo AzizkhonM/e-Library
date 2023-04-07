@@ -63,7 +63,6 @@ export class AdminController {
     return this.adminService.deactivate(+id); 
   }
 
-
   @UseGuards(JwtAuthGuard)
   @UseGuards(ActiveAdminGuard)
   @UseGuards(AdminSelfGuard)

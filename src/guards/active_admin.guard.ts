@@ -36,7 +36,7 @@ export class ActiveAdminGuard implements CanActivate {
         
         if(!user.is_active){
             throw new UnauthorizedException({
-                message: "Admin faol emas"
+                message: "Faollashtirilmagansiz"
             })
         }
 

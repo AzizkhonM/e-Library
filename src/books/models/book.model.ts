@@ -1,6 +1,7 @@
 import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript"
 import { Author } from "../../authors/models/author.model"
 import { CoverType } from "../../cover_types/models/cover_type.model"
+import { Category } from "../../category/models/category.model"
 
 interface BookAttr{
     id: number
@@ -11,6 +12,8 @@ interface BookAttr{
     publication_year: number
     branch_id: number
     cover_id: number
+    category_id: number
+    cover_image_link: string
 }
 
 @Table({ tableName: "books", createdAt: false, updatedAt: false })
@@ -63,5 +66,18 @@ export class Book extends Model<BookAttr>{
     cover_id: number
     @BelongsTo(()=> CoverType)
     cover_type: CoverType[]
+
+    @ForeignKey(() => Category)
+    @Column({
+        type: DataType.INTEGER
+    })
+    category_id: number
+    @BelongsTo(()=> Category)
+    category: Category[]
+
+    @Column({
+        type: DataType.STRING
+    })
+    cover_image_link: string
 
 }
