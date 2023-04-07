@@ -6,6 +6,6 @@ export class UpdateAdminDto extends PartialType(CreateAdminDto) {
 
     @ApiProperty({ example: "false", description: "Faol/Faol emaslik" })
     @IsBoolean()
-    is_active: true
+    is_active?: true
 
 }

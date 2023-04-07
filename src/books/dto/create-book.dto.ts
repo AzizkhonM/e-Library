@@ -1,5 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString, Min } from "class-validator";
+import { Max } from "sequelize-typescript";
+
+const a = 2023
 
 export class CreateBookDto {
 
@@ -25,7 +28,9 @@ export class CreateBookDto {
 
     @ApiProperty({ example: "2000", description: "Nashr etilgan yil" })
     @IsNumber()
-    @IsNotEmpty()
+    @IsNotEmpty()/* 
+    @Min(1300)
+    @Max(2023) */
     publication_year: number
 
     @ApiProperty({ example: "1", description: "Fillial ID raqami" })

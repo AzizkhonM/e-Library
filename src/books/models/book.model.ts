@@ -1,7 +1,9 @@
-import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript"
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript"
 import { Author } from "../../authors/models/author.model"
 import { CoverType } from "../../cover_types/models/cover_type.model"
 import { Category } from "../../category/models/category.model"
+import { Order } from "../../orders/models/order.model"
+import { Branch } from "../../branches/models/branch.model"
 
 interface BookAttr{
     id: number
@@ -54,10 +56,13 @@ export class Book extends Model<BookAttr>{
     })
     publication_year: number
 
+    @ForeignKey(() => Branch)
     @Column({
         type: DataType.INTEGER
     })
     branch_id: number
+    @BelongsTo(() => Branch)
+    branch: Branch[]
 
     @ForeignKey(() => CoverType)
     @Column({
@@ -79,5 +84,8 @@ export class Book extends Model<BookAttr>{
         type: DataType.STRING
     })
     cover_image_link: string
+
+    @HasMany(() => Order)
+    orders: Order[]
 
 }

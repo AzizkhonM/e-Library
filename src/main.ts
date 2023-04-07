@@ -1,8 +1,9 @@
-import { NestFactory } from '@nestjs/core';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from "cookie-parser"
+import { AllExceptionsFilter } from './error/error.handler';
 
 const start = async () => {
 
@@ -36,6 +37,19 @@ const start = async () => {
       .setVersion("1.0.0")
       .addTag("NodeJS, NestJS, Postgres, Sequelize")
       .build()
+
+    const httpAdapter = app.get(HttpAdapterHost);
+    app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
+
+    app.use((req, res, next) => {
+      const startTime = Date.now()
+      res.on('finish', () => {
+        const endTime = Date.now()
+        const responseTime = endTime - startTime
+        console.log(`${req.method} ${req.originalUrl} ${res.statusCode} ${responseTime}ms`);
+      })
+      next();
+    })
     
     const document = SwaggerModule.createDocument(app, config)
     SwaggerModule.setup("/api/docs", app, document)

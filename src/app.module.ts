@@ -3,8 +3,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { StaffModule } from './staff/staff.module';
-import { Staff } from './staff/models/staff.model';
 import { RegionModule } from './region/region.module';
 import { DistrictModule } from './district/district.module';
 import { AuthorsModule } from './authors/authors.module';
@@ -23,6 +21,9 @@ import { CategoryModule } from './category/category.module';
 import { Category } from './category/models/category.model';
 import { UsersModule } from './users/users.module';
 import { MailModule } from './mail/mail.module';
+import { OrdersModule } from './orders/orders.module';
+import { User } from './users/models/user.model';
+import { Order } from './orders/models/order.model';
 
 @Module({
   imports: [
@@ -35,7 +36,6 @@ import { MailModule } from './mail/mail.module';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
       models: [
-        Staff,
         Region,
         District,
         Author,
@@ -43,12 +43,13 @@ import { MailModule } from './mail/mail.module';
         CoverType,
         Branch,
         Admin,
-        Category
+        Category,
+        User,
+        Order
       ],
       autoLoadModels: true,
       logging: true
     }),
-    StaffModule,
     RegionModule,
     DistrictModule,
     AuthorsModule,
@@ -58,7 +59,8 @@ import { MailModule } from './mail/mail.module';
     AdminModule,
     CategoryModule,
     UsersModule,
-    MailModule
+    MailModule,
+    OrdersModule
   ],
   controllers: [AppController],
   providers: [AppService],

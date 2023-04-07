@@ -1,7 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { Observable } from "rxjs";
-import { Admin } from "../admin/models/admin.model";
 
 @Injectable()
 export class AdminSelfGuard implements CanActivate {

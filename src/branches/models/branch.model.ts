@@ -1,5 +1,6 @@
-import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript"
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript"
 import { District } from "../../district/models/district.model"
+import { Book } from "../../books/models/book.model"
 
 interface BranchAttr{
     id: number
@@ -50,5 +51,8 @@ export class Branch extends Model<BranchAttr>{
         type: DataType.INTEGER
     })
     zip_code: number
+
+    @HasMany(() => Book)
+    books: Book[]
 
 }
